@@ -4,7 +4,7 @@ unityでoverlayのキャンバスにパーティクルエフェクトを表示�
 # デモ
 UniRxを使って実装しているので、AssetStoreからUniRxのアセットをインポートしましょう。
 EffectManagerプレハブをシーンに追加し、
-エフェクトを表示させたいCanvasオブジェクトをEffectManagerオブジェクトのインスペクターにあるMostFrontCanvas変数にアタッチすれば準備完了です。
+エフェクトを表示させたいCanvasオブジェクトをEffectManagerオブジェクトのインスペクターにあるMostFrontCanvas変数にアタッチすれば準備完了です。(アタッチしなくても動きます。後述します。)
 再生すると、とクリックした位置から桜が散るエフェクトが再生されるデモを体験できます。
 
 # 経緯と仕組み

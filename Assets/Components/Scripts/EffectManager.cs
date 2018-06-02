@@ -2,6 +2,9 @@
 using UnityEngine;
 using UniRx;
 using System;
+using System.Linq;
+using UniRx.Triggers;
+using UnityEngine.UI;
 
 public class EffectManager : MonoBehaviour {
 
@@ -21,13 +24,18 @@ public class EffectManager : MonoBehaviour {
 
 	//shrinkInterval秒毎に余分なエフェクトを1つずつ削除していきます。
 	public int ShrinkInterval = 10;
-
 	
 	private void Start()
 	{
-		if (_mostFrontCanvas == null)
-		{
-			_mostFrontCanvas = GameObject.Find("Canvas").transform;
+		if (_mostFrontCanvas == null) {
+			var canvasObject = new GameObject("EffectCanvas");
+			var canvas = canvasObject.AddComponent<Canvas>();
+			canvasObject.AddComponent<GraphicRaycaster>();
+			canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+			canvas.sortingOrder = 30000;
+			
+			Instantiate(canvasObject);
+			_mostFrontCanvas = canvasObject.transform;
 		}
 
 		SetRawImagesParent();
@@ -45,6 +53,7 @@ public class EffectManager : MonoBehaviour {
 			.Select(_ => _effectPool[_effectPool.Count -1])
 			.Where(e => e.IsPlaying == false)
 			.Subscribe(ShrinkPool).AddTo(this);
+			
 	}
 
 	private void SetRawImagesParent()
